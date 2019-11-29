@@ -8,6 +8,7 @@ contrib/target
 .project
 .settings
 .warc.invalid
+*.log
 /docs/_build
 */.classpath
 */.project
