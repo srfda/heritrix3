@@ -33,7 +33,7 @@ http://maven.apache.org/guides/mini/guide-m1-m2.html
        <developerConnection>scm:git:https://github.com/internetarchive/heritrix3.git</developerConnection>
        <url>https://github.com/internetarchive/heritrix3</url>
       <tag>HEAD</tag>
-  </scm>            
+  </scm>
 
 	<licenses>
 		<license>
@@ -383,6 +383,7 @@ http://maven.apache.org/guides/mini/guide-m1-m2.html
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <argLine>-Xmx1g</argLine>
                     <systemPropertyVariables>
                         <testtmpdir>${project.build.directory}/heritrix-junit-tests</testtmpdir>
@@ -396,6 +397,11 @@ http://maven.apache.org/guides/mini/guide-m1-m2.html
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
 	</properties>
+
+  <properties>
+    <maven.test.skip>true</maven.test.skip>
+  </properties>
+
     <profiles>
         <profile>
             <id>ossrh</id>
