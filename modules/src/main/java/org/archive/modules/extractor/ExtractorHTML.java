@@ -188,7 +188,7 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
     // sorts are matched specially
     static final String EACH_ATTRIBUTE_EXTRACTOR =
       "(?is)\\s?((href)|(action)|(on\\w*)" // 1, 2, 3, 4 
-     +"|((?:src)|(?:srcset)|(?:lowsrc)|(?:background)|(?:cite)" // ...
+     +"|((?:src)|(?:srcset)|(?:data-src)|(?:data-srcset)(?:lowsrc)|(?:background)|(?:cite)" // ...
      +"|(?:longdesc)|(?:usemap)|(?:profile)|(?:datasrc))" // 5
      +"|(codebase)|((?:classid)|(?:data))|(archive)|(code)" // 6, 7, 8, 9
      +"|(value)|(style)|(method)" // 10, 11, 12
@@ -686,7 +686,7 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
             while (matcher.lookingAt()) {
                 String link = matcher.group(1);
                 matcher.region(matcher.end(), matcher.regionEnd());
-                logger.finer("Found " + link + " adding to outlinks.");
+                logger.finest("Found " + link + " adding to outlinks.");
                 addLinkFromString(curi, link, context, hop);
                 numberOfLinksExtracted.incrementAndGet();
             }
@@ -889,7 +889,7 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
 
 
     static final String NON_HTML_PATH_EXTENSION =
-        "(?i)(gif)|(jp(e)?g)|(png)|(tif(f)?)|(bmp)|(avi)|(mov)|(mp(e)?g)"+
+        "(?i)(gif)|(jp(e)?g)|(png)|(tif(f)?)|(webp)|(bmp)|(avi)|(mov)|(mp(e)?g)"+
         "|(mp3)|(mp4)|(swf)|(wav)|(au)|(aiff)|(mid)";
 
     /**
