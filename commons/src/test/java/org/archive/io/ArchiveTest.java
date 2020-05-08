@@ -94,6 +94,7 @@ public class ArchiveTest
 	static String[] mimeTypes =	{
 		"image/gif",
 		"image/png",
+		"image/webp",
 		"text/css",
 		"text/dns",
 		"text/html",

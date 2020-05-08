@@ -170,6 +170,8 @@ public class UriUtils {
             "image/vnd.ms-modi",
             "image/vnd.ms-photo",
             "image/vnd.wap.wbmp",
+            "image/webp",
+            "image/WEBP",
             "image/x-bitmap",
             "image/x-bmp",
             "image/x-citrix-pjpeg",
@@ -196,6 +198,7 @@ public class UriUtils {
             "image/x-psd",
             "image/x-quicktime",
             "image/x-rgb",
+            "image/x-webp",
             "image/x-windows-bmp",
             "image/x-wmf",
             "image/x-xbitmap",
@@ -387,8 +390,8 @@ public class UriUtils {
          * in the list somewhat arbitrarily.
          */
         KNOWN_GOOD_FILE_EXTENSIONS.addAll(Arrays.asList(".jpg", ".js", ".css",
-                ".png", ".gif", ".swf", ".flv", ".mp4", ".mp3", ".jpeg",
-                ".html", ".pdf"));
+                ".png", ".gif", ".swf", ".flv", ".mp4", ".mp3", ".jpeg", 
+                ".html", ".pdf", ".webp" ));
     }
 
     protected static final String QNV = "[a-zA-Z_]+=(?:[\\w-/.]|%[0-9a-fA-F]{2})*"; // name=value for query strings

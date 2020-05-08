@@ -35,9 +35,9 @@ public class MatchesFilePatternDecideRule extends MatchesRegexDecideRule {
         
         ALL(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|tiff?|aac|aiff?|m3u|m4a|midi?" +
                 "|mp2|mp3|mp4|mpa|ogg|ra|ram|wav|wma|asf|asx|avi|flv|mov|mp4" + 
-                "|mpeg|mpg|qt|ram|rm|smil|wmv|doc|pdf|ppt|swf))$"),
+                "|mpeg|mpg|qt|ram|rm|smil|wmv|doc|pdf|ppt|swf|webp))$"),
                     
-        IMAGES(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|tiff?))$"),
+        IMAGES(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|webp|tiff?))$"),
 
         AUDIO(".*(?i)(\\.(aac|aiff?|m3u|m4a|midi?|mp2|mp3|mp4|mpa|ogg|ra|ram|wav|wma))$"),
         

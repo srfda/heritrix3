@@ -33,6 +33,8 @@ public class HTMLLinkContext extends LinkContext {
     final public static HTMLLinkContext A_HREF = new HTMLLinkContext("a", "href");
     final public static HTMLLinkContext IMG_SRC = new HTMLLinkContext("img", "src");
     final public static HTMLLinkContext IMG_SRCSET = new HTMLLinkContext("img", "srcset");
+    final public static HTMLLinkContext IMG_DATA_SRC = new HTMLLinkContext("img", "data-src");
+    final public static HTMLLinkContext IMG_DATA_SRCSET = new HTMLLinkContext("img", "data-srcset");
     final public static HTMLLinkContext SOURCE_SRCSET = new HTMLLinkContext("source", "srcset");
     final public static HTMLLinkContext SCRIPT_SRC = new HTMLLinkContext("script", "src");
     final public static HTMLLinkContext META_HREF = new HTMLLinkContext("meta", "href");
@@ -61,6 +63,10 @@ public class HTMLLinkContext extends LinkContext {
         } else if (attr.equals("srcset") || attr.equals("SRCSET")) {
             if (el.equals("img") || attr.equals("IMG")) return IMG_SRCSET;
             if (el.equals("source") || attr.equals("SOURCE")) return SOURCE_SRCSET;
+        } else if (attr.equals("data-src") || attr.equals("DATA-SRC")) {
+            if (el.equals("img") || attr.equals("IMG")) return IMG_DATA_SRC;
+        } else if (attr.equals("data-srcset") || attr.equals("DATA-SRCSET")) {
+            if (el.equals("img") || attr.equals("IMG")) return IMG_DATA_SRCSET;
         }
         return new HTMLLinkContext(el, attr);
     }
@@ -78,6 +84,8 @@ public class HTMLLinkContext extends LinkContext {
         if (path.equalsIgnoreCase("meta/@href")) return META_HREF;
         if (path.equalsIgnoreCase("img/@src")) return IMG_SRC;
         if (path.equalsIgnoreCase("img/@srcset")) return IMG_SRCSET;
+        if (path.equalsIgnoreCase("img/@data-src")) return IMG_DATA_SRC;
+        if (path.equalsIgnoreCase("img/@data-srcset")) return IMG_DATA_SRCSET;
         if (path.equalsIgnoreCase("source/@srcset")) return SOURCE_SRCSET;
         if (path.equalsIgnoreCase("script/@src")) return SCRIPT_SRC;
         return new HTMLLinkContext(path);
