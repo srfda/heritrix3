@@ -40,9 +40,15 @@ Heritrix is distributed with the libraries it depends upon. The libraries can be
 
 - load maven module (>=3.6.2, use module spider for list of available modules)
   module load apache/maven/3.6.2-x64
+
 - in the main directory run
   mvn clean
   mvn compile
   mvn test
   mvn package
+
+- copy the package data to the target diretory, i.e.
+  mkdir -p /local/services/webcrawler/heritrix
+  tar -zxf dist/target/heritrix-srfda-dist.tar.gz --directory=/local/services/webcrawler/heritrix
+  
    
