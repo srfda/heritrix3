@@ -188,8 +188,9 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
     // sorts are matched specially
     static final String EACH_ATTRIBUTE_EXTRACTOR =
       "(?is)\\s?((href)|(action)|(on\\w*)" // 1, 2, 3, 4 
-     +"|((?:src)|(?:srcset)|(?:data-src)|(?:data-srcset)(?:lowsrc)|(?:background)|(?:cite)" // ...
-     +"|(?:longdesc)|(?:usemap)|(?:profile)|(?:datasrc))" // 5
+     +"|((?:src)|(?:srcset)|(?:lowsrc)|(?:background)|(?:cite)" // ...
+     +"|(?:longdesc)|(?:usemap)|(?:profile)|(?:datasrc)" // ...
+     +"|(?:data-src)|(?:data-srcset)|(?:data-original)|(?:data-original-set))" // 5
      +"|(codebase)|((?:classid)|(?:data))|(archive)|(code)" // 6, 7, 8, 9
      +"|(value)|(style)|(method)" // 10, 11, 12
      +"|([-\\w]{1,"+MAX_ATTR_NAME_REPLACE+"}))" // 13
@@ -202,8 +203,9 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
     // 2: HREF - single URI relative to doc base, or occasionally javascript:
     // 3: ACTION - single URI relative to doc base, or occasionally javascript:
     // 4: ON[WHATEVER] - script handler
-    // 5: SRC,SRCSET,LOWSRC,BACKGROUND,CITE,LONGDESC,USEMAP,PROFILE, or DATASRC
-    //    single URI relative to doc base
+    // 5: SRC,SRCSET,LOWSRC,BACKGROUND,CITE,LONGDESC,USEMAP,PROFILE, or 
+    //    DATA-SRC, DATA-ORIGINAL single URI relative to doc base
+    //    DATA-SRCSET, DATA-ORIGINAL-SET multi URI relative to doc base
     // 6: CODEBASE - a single URI relative to doc base, affecting other
     //    attributes
     // 7: CLASSID, DATA - a single URI relative to CODEBASE (if supplied)
@@ -445,18 +447,20 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
             } else if (attr.start(5) > -1) {
                 // SRC etc.
                 CharSequence context = elementContext(element, attr.group(5));
-                
-                // true, if we expect another HTML page instead of an image etc.
-                final Hop hop;
-                
-                if(!framesAsEmbeds
-                    && (elementStr.equalsIgnoreCase(FRAME) || elementStr
-                        .equalsIgnoreCase(IFRAME))) {
-                    hop = Hop.NAVLINK;
-                } else {
-                    hop = Hop.EMBED;
+                if (!context.toString().toLowerCase().startsWith("data:")) {
+
+                    // true, if we expect another HTML page instead of an image etc.
+                    final Hop hop;
+
+                    if (!framesAsEmbeds
+                            && (elementStr.equalsIgnoreCase(FRAME) || elementStr
+                            .equalsIgnoreCase(IFRAME))) {
+                        hop = Hop.NAVLINK;
+                    } else {
+                        hop = Hop.EMBED;
+                    }
+                    processEmbed(curi, value, context, hop);
                 }
-                processEmbed(curi, value, context, hop);
             } else if (attr.start(6) > -1) {
                 // CODEBASE
                 codebase = (value instanceof String)?
@@ -678,14 +682,18 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
                 " from " + curi);
         }
 
-        if (context.equals(HTMLLinkContext.IMG_SRCSET.toString()) || context.equals(HTMLLinkContext.SOURCE_SRCSET.toString())) {
-
+        if (context.equals(HTMLLinkContext.IMG_SRCSET.toString()) 
+				|| context.equals(HTMLLinkContext.SOURCE_SRCSET.toString())
+				|| context.equals(HTMLLinkContext.IMG_DATA_SRCSET.toString())
+				|| context.equals(HTMLLinkContext.IMG_DATA_ORIGINAL_SET.toString())
+				|| context.equals(HTMLLinkContext.SOURCE_DATA_ORIGINAL_SET.toString())) {
             logger.fine("Found srcset listing: " + value.toString());
 
             Matcher matcher = TextUtils.getMatcher("[\\s,]*(\\S*[^,\\s])(?:\\s(?:[^,(]+|\\([^)]*(?:\\)|$))*)?", value);
             while (matcher.lookingAt()) {
                 String link = matcher.group(1);
                 matcher.region(matcher.end(), matcher.regionEnd());
+                //logger.finer("Found " + link + " adding to outlinks.");
                 logger.finest("Found " + link + " adding to outlinks.");
                 addLinkFromString(curi, link, context, hop);
                 numberOfLinksExtracted.incrementAndGet();
@@ -889,8 +897,8 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
 
 
     static final String NON_HTML_PATH_EXTENSION =
-        "(?i)(gif)|(jp(e)?g)|(png)|(tif(f)?)|(webp)|(bmp)|(avi)|(mov)|(mp(e)?g)"+
-        "|(mp3)|(mp4)|(swf)|(wav)|(au)|(aiff)|(mid)";
+        "(?i)(gif)|(jp(e)?g)|(png)|(webp)|(tif(f)?)|(bmp)|(avi)|(mov)|(mp(e)?g)"+
+        "|(mp3)|(mp4)|(swf)|(webm)|(wav)|(au)|(aiff)|(mid)";
 
     /**
      * Test whether this HTML is so unexpected (eg in place of a GIF URI)

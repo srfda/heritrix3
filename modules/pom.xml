@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.archive</groupId>
 		<artifactId>heritrix</artifactId>
-		<version>srfda</version>
+		<version>3.4.0-SRFDA</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.archive.heritrix</groupId>
@@ -61,6 +61,11 @@
 			<artifactId>slf4j-jdk14</artifactId>
 			<version>1.6.6</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.52</version>
 		</dependency>
 	</dependencies>
 	<build>

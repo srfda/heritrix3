@@ -390,7 +390,7 @@ public class UriUtils {
          * in the list somewhat arbitrarily.
          */
         KNOWN_GOOD_FILE_EXTENSIONS.addAll(Arrays.asList(".jpg", ".js", ".css",
-                ".png", ".gif", ".swf", ".flv", ".mp4", ".mp3", ".jpeg", 
+                ".png", ".gif", ".swf", ".flv", ".mp4", ".mp3", ".jpeg",
                 ".html", ".pdf", ".webp" ));
     }
 

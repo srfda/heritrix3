@@ -33,15 +33,15 @@ public class MatchesFilePatternDecideRule extends MatchesRegexDecideRule {
 
     public static enum Preset { 
         
-        ALL(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|tiff?|aac|aiff?|m3u|m4a|midi?" +
+        ALL(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|webp|tiff?|aac|aiff?|m3u|m4a|midi?" +
                 "|mp2|mp3|mp4|mpa|ogg|ra|ram|wav|wma|asf|asx|avi|flv|mov|mp4" + 
-                "|mpeg|mpg|qt|ram|rm|smil|wmv|doc|pdf|ppt|swf|webp))$"),
+                "|mpeg|mpg|qt|ram|rm|smil|webm|wmv|doc|pdf|ppt|swf))$"),
                     
         IMAGES(".*(?i)(\\.(bmp|gif|jpe?g|png|svg|webp|tiff?))$"),
 
         AUDIO(".*(?i)(\\.(aac|aiff?|m3u|m4a|midi?|mp2|mp3|mp4|mpa|ogg|ra|ram|wav|wma))$"),
         
-        VIDEO(".*(?i)(\\.(asf|asx|avi|flv|mov|mp4|mpeg|mpg|qt|ram|rm|smil|wmv))$"),
+        VIDEO(".*(?i)(\\.(asf|asx|avi|flv|mov|mp4|mpeg|mpg|qt|ram|rm|smil|webm|wmv))$"),
             
         MISC(".*(?i)(\\.(doc|pdf|ppt|swf))$"), 
 

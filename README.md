@@ -1,5 +1,4 @@
-# Heritrix SRFDA tree
-
+# Heritrix
 [![Build Status](https://travis-ci.org/internetarchive/heritrix3.svg?branch=master)](https://travis-ci.org/internetarchive/heritrix3)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.archive/heritrix/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.archive/heritrix)
 [![Javadoc](https://javadoc-badge.appspot.com/org.archive/heritrix.svg?label=javadoc)](https://www.javadoc.io/doc/org.archive.heritrix/heritrix-engine)
@@ -24,6 +23,7 @@ load your crawl will place on seed sites and set politeness policies accordingly
 - [REST API documentation](https://heritrix.readthedocs.io/en/latest/api.html)
 - JavaDoc: [engine](https://www.javadoc.io/doc/org.archive.heritrix/heritrix-engine), [modules](https://www.javadoc.io/doc/org.archive.heritrix/heritrix-modules), [commons](https://www.javadoc.io/doc/org.archive.heritrix/heritrix-commons), [contrib](https://www.javadoc.io/doc/org.archive.heritrix/heritrix-contrib)
 
+
 ## Latest Releases
 
 Information about releases can be found [here](https://github.com/internetarchive/heritrix3/wiki#latest-releases).
@@ -35,20 +35,3 @@ Heritrix is free software; you can redistribute it and/or modify it under the te
 Some individual source code files are subject to or offered under other licenses. See the included [`LICENSE.txt`](./LICENSE) file for more information.
 
 Heritrix is distributed with the libraries it depends upon. The libraries can be found under the `lib` directory in the release distribution, and are used under the terms of their respective licenses, which are included alongside the libraries in the `lib` directory.
-
-## SRFDA Build
-
-- load maven module (>=3.6.2, use module spider for list of available modules)
-  module load apache/maven/3.6.2-x64
-
-- in the main directory run
-  mvn clean
-  mvn compile
-  mvn test
-  mvn package
-
-- copy the package data to the target diretory, i.e.
-  mkdir -p /local/services/webcrawler/heritrix
-  tar -zxf dist/target/heritrix-srfda-dist.tar.gz --directory=/local/services/webcrawler/heritrix
-  
-   

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.archive</groupId>
 		<artifactId>heritrix</artifactId>
-		<version>srfda</version>
+		<version>3.4.0-SRFDA</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.archive.heritrix</groupId>
@@ -14,7 +14,7 @@
 	<repositories>
 		<repository>
 			<id>maven-restlet</id>
-			<url>http://maven.restlet.org</url>
+			<url>https://maven.restlet.org</url>
 		</repository>
 	</repositories>
 

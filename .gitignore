@@ -7,9 +7,14 @@ contrib/target
 .classpath
 .project
 .settings
-.warc.invalid
-*.log
 /docs/_build
 */.classpath
 */.project
 */.settings
+.idea
+*.iml
+/adhoc.keystore
+/heritrix_dmesg.log
+/jobs
+*.log
+.warc.invalid
