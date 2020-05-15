@@ -398,7 +398,8 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
         
         final String elementStr = element.toString();
 
-        while (attr.find()) {
+        while (attr.find()) 
+        {
             int valueGroup =
                 (attr.start(14) > -1) ? 14 : (attr.start(15) > -1) ? 15 : 16;
             int start = attr.start(valueGroup);
@@ -444,22 +445,25 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
             } else if (attr.start(4) > -1) {
                 // ON____
                 processScriptCode(curi, value); // TODO: context?
-            } else if (attr.start(5) > -1) {
+            } else if (attr.start(5) > -1) 
+            {
                 // SRC etc.
                 CharSequence context = elementContext(element, attr.group(5));
-                if (!context.toString().toLowerCase().startsWith("data:")) {
-
-                    // true, if we expect another HTML page instead of an image etc.
-                    final Hop hop;
-
-                    if (!framesAsEmbeds
-                            && (elementStr.equalsIgnoreCase(FRAME) || elementStr
-                            .equalsIgnoreCase(IFRAME))) {
+                //logger.info("#SRCSET:Found attribute contex = " + context.toString());
+                logger.finer("#SRCSET:Found attribute contex = " + context.toString());
+                if (!context.toString().toLowerCase().startsWith("data:")) 
+                {
+                  // true, if we expect another HTML page instead of an image etc.
+                  final Hop hop;
+                  if (!framesAsEmbeds && 
+                     (elementStr.equalsIgnoreCase(FRAME) || elementStr
+                     .equalsIgnoreCase(IFRAME))) {
                         hop = Hop.NAVLINK;
-                    } else {
-                        hop = Hop.EMBED;
-                    }
-                    processEmbed(curi, value, context, hop);
+                  } else 
+                  {
+                    hop = Hop.EMBED;
+                  }
+                  processEmbed(curi, value, context, hop);
                 }
             } else if (attr.start(6) > -1) {
                 // CODEBASE
@@ -677,24 +681,33 @@ public class ExtractorHTML extends ContentExtractor implements InitializingBean 
 
     protected void processEmbed(CrawlURI curi, final CharSequence value,
             CharSequence context, Hop hop) {
-        if (logger.isLoggable(Level.FINEST)) {
-            logger.finest("embed (" + hop.getHopChar() + "): " + value.toString() +
-                " from " + curi);
+        if (logger.isLoggable(Level.FINEST)) 
+        {
+          logger.finest("embed (" + hop.getHopChar() + "): " + value.toString() +
+                                " from " + curi);
         }
 
+        /*
+        logger.info("#SRCSET:Found srcset listing: " + context.toString() + ", hop=" + hop.toString() );
+        logger.info("#SRCSET:valids are: " + HTMLLinkContext.IMG_SRCSET.toString() + ", "
+                                           + HTMLLinkContext.SOURCE_SRCSET.toString() + ", "
+                                           + HTMLLinkContext.IMG_DATA_SRCSET.toString() + ", "
+                                           + HTMLLinkContext.IMG_DATA_ORIGINAL_SET.toString() + ", "
+                                           + HTMLLinkContext.SOURCE_DATA_ORIGINAL_SET.toString() );
+        */
+        logger.finer("#SRCSET:Found srcset listing: " + context.toString() + ", hop=" + hop.toString() );
         if (context.equals(HTMLLinkContext.IMG_SRCSET.toString()) 
 				|| context.equals(HTMLLinkContext.SOURCE_SRCSET.toString())
 				|| context.equals(HTMLLinkContext.IMG_DATA_SRCSET.toString())
 				|| context.equals(HTMLLinkContext.IMG_DATA_ORIGINAL_SET.toString())
 				|| context.equals(HTMLLinkContext.SOURCE_DATA_ORIGINAL_SET.toString())) {
-            logger.fine("Found srcset listing: " + value.toString());
-
+            //logger.fine("Found srcset listing: " + value.toString());
             Matcher matcher = TextUtils.getMatcher("[\\s,]*(\\S*[^,\\s])(?:\\s(?:[^,(]+|\\([^)]*(?:\\)|$))*)?", value);
             while (matcher.lookingAt()) {
                 String link = matcher.group(1);
                 matcher.region(matcher.end(), matcher.regionEnd());
-                //logger.finer("Found " + link + " adding to outlinks.");
-                logger.finest("Found " + link + " adding to outlinks.");
+                logger.finer("#SRCSET:Found " + link + " adding to outlinks.");
+                //logger.info("#SRCSET:Found " + link + " adding to outlinks.");
                 addLinkFromString(curi, link, context, hop);
                 numberOfLinksExtracted.incrementAndGet();
             }
